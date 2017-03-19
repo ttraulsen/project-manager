@@ -1,0 +1,222 @@
+swagger: '2.0'
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version: 'v1'
+  title: Project Tracker
+  description: "Backend for a simple CRUD example application to track different projects"
+
+host: localhost:5000
+basePath: /project-tracker
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  /projects:
+    get:
+      summary: List all projects
+      produces: 
+        - application/json
+      responses:
+        200:
+          description: Aa array of all projects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Project'
+    post:
+      summary: Create a new project
+      consumes: 
+        - application/json
+      produces: 
+        - application/json
+      parameters:
+        - in: body
+          name: project
+          description: The project you want to create
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      responses:
+        201:
+          description: The project has been successfully created.
+          schema:
+            $ref: '#/definitions/Message'
+    put:
+      summary: You shouldn't put the entire List
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: project
+          description: The project you want to update
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      responses:
+        404:
+          description: You can't update the whole List
+          schema:
+            $ref: '#/definitions/Message'
+    patch:
+      summary: You shouldn't put the entire List
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: project
+          description: The project you want to update
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      responses:
+        404:
+          description: You can't update the whole List
+          schema:
+            $ref: '#/definitions/Message'
+    delete:
+      summary: You shouldn't delete the entire List
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: project
+          description: The project you want to delete
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      responses:
+        404:
+          description: You can't delete the whole List
+          schema:
+            $ref: '#/definitions/Message'
+
+  /projects/{id}:
+    get:
+      summary: get specific project by id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: number
+          description: Project id
+          required: true
+      responses:
+        200:
+          description: the project with the id
+          schema:
+            $ref: '#/definitions/Project'
+        404:
+          description: no project with this id existing
+          schema:
+            $ref: '#/definitions/Message'
+    put:
+      summary: update an existing project
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: number
+          description: The project id
+          required: true
+        - in: body
+          name: project
+          description: the project you want to update
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      responses:
+        200:
+          description: The project has been successfully updated.
+          schema:
+            $ref: '#/definitions/Message'
+        404:
+          description: no project with this id existing
+          schema:
+            $ref: '#/definitions/Message'
+    post:
+      summary: update an existing project
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: number
+          description: The project id
+          required: true
+        - in: body
+          name: project
+          description: the project you want to update
+          required: true
+          schema:
+            $ref: '#/definitions/Project'
+      responses:
+        200:
+          description: The project has been successfully updated.
+          schema:
+            $ref: '#/definitions/Message'
+        404:
+          description: no project with this id existing
+          schema:
+            $ref: '#/definitions/Message'
+        409:
+          description: conflicting with other prject with same name
+          schema:
+            $ref: '#/definitions/Message'
+    delete:
+      summary: Delete a project
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: number
+          description: The project id you want to delete.
+          required: true
+      responses:
+        200:
+          description: The project has been deleted.
+          schema:
+            $ref: '#/definitions/Message'
+        404:
+          description: no project with this id existing
+          schema:
+            $ref: '#/definitions/Message'
+
+################################################################################
+#                                     Definitions                              #
+################################################################################
+
+definitions:
+
+  Project:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      customer:
+        type: string
+  Message:
+    type: object
+    properties:
+      message:
+        type: string
+        description: A response message from the app.
+
