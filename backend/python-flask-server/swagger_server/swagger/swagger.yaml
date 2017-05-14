@@ -1,0 +1,574 @@
+---
+swagger: "2.0"
+info:
+  description: "Backend for a simple CRUD example application to track different projects"
+  version: "v1"
+  title: "Project Tracker"
+host: "localhost:5000"
+basePath: "/project-tracker"
+paths:
+  /projects:
+    get:
+      summary: "List all projects"
+      operationId: "projects_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Aa array of all projects"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Project"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    post:
+      summary: "Create a new project"
+      operationId: "projects_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "project"
+        description: "The project you want to create"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        201:
+          description: "The project has been successfully created."
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    put:
+      summary: "You shouldn't put the entire List"
+      operationId: "projects_put"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "project"
+        description: "The project you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        404:
+          description: "You can't update the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    delete:
+      summary: "You shouldn't delete the entire List"
+      operationId: "projects_delete"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "project"
+        description: "The project you want to delete"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        404:
+          description: "You can't delete the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    patch:
+      summary: "You shouldn't put the entire List"
+      operationId: "projects_patch"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "project"
+        description: "The project you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        404:
+          description: "You can't update the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /projects/{id}:
+    get:
+      summary: "get specific project by id"
+      operationId: "projects_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "the project with the id"
+          schema:
+            $ref: "#/definitions/Project"
+        404:
+          description: "no project with this id existing"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    post:
+      summary: "update an existing project"
+      operationId: "projects_id_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The project id"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "project"
+        description: "the project you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        200:
+          description: "The project has been successfully updated."
+          schema:
+            $ref: "#/definitions/Message"
+        404:
+          description: "no project with this id existing"
+          schema:
+            $ref: "#/definitions/Message"
+        409:
+          description: "conflicting with other prject with same name"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    put:
+      summary: "update an existing project"
+      operationId: "projects_id_put"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The project id"
+        required: true
+        type: "number"
+      - in: "body"
+        name: "project"
+        description: "the project you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Project"
+      responses:
+        200:
+          description: "The project has been successfully updated."
+          schema:
+            $ref: "#/definitions/Message"
+        404:
+          description: "no project with this id existing"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    delete:
+      summary: "Delete a project"
+      operationId: "projects_id_delete"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The project id you want to delete."
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "The project has been deleted."
+          schema:
+            $ref: "#/definitions/Message"
+        404:
+          description: "no project with this id existing"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /projects/{id}/comments:
+    get:
+      summary: "List all comments on this project"
+      operationId: "projects_id_comments_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Aa array of all projects"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Comment"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    post:
+      summary: "Create a new comment"
+      operationId: "projects_id_comments_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The comment you want to create"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment"
+      responses:
+        201:
+          description: "The comment has been successfully created."
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    put:
+      summary: "You can't put the entire List"
+      operationId: "projects_id_comments_put"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The comment you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment"
+      responses:
+        404:
+          description: "You can't update the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    delete:
+      summary: "You can't delete the entire List"
+      operationId: "projects_id_comments_delete"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The comment you want to delete"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment"
+      responses:
+        404:
+          description: "You can't delete the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    patch:
+      summary: "You can't put the entire List"
+      operationId: "projects_id_comments_patch"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The comment you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment"
+      responses:
+        404:
+          description: "You can't update the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /projects/{id}/contacts:
+    get:
+      summary: "List all contacts associated with this project"
+      operationId: "projects_id_contacts_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "An array of all contacts for this project"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Contact"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    post:
+      summary: "Add a new contact"
+      operationId: "projects_id_contacts_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The comment you want to create"
+        required: true
+        schema:
+          $ref: "#/definitions/Contact"
+      responses:
+        201:
+          description: "The comment has been successfully created."
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    put:
+      summary: "You can't put the entire List"
+      operationId: "projects_id_contacts_put"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The contact you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Contact"
+      responses:
+        404:
+          description: "You can't update the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    delete:
+      summary: "You can't delete the entire List"
+      operationId: "projects_id_contacts_delete"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The contact you want to delete"
+        required: true
+        schema:
+          $ref: "#/definitions/Contact"
+      responses:
+        404:
+          description: "You can't delete the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    patch:
+      summary: "You can't put the entire List"
+      operationId: "projects_id_contacts_patch"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "project"
+        description: "The contact you want to update"
+        required: true
+        schema:
+          $ref: "#/definitions/Contact"
+      responses:
+        404:
+          description: "You can't update the whole List"
+          schema:
+            $ref: "#/definitions/Message"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions:
+  Project:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "internal id of project, gets created by system"
+      parent:
+        type: "integer"
+        format: "int64"
+        description: "id of parent project so projects can be organized"
+      name:
+        type: "string"
+      customer:
+        type: "integer"
+        format: "int64"
+        description: "id of customer this project is done for"
+      startdate:
+        type: "string"
+        format: "date-time"
+        description: "start date of project"
+      enddate:
+        type: "string"
+        format: "date-time"
+        description: "end date of project"
+      type:
+        type: "string"
+        description: "type of this project"
+        default: "Kundenprojekt"
+        enum:
+        - "Kundenprojekt"
+        - "internes Projekt"
+        - "untergeordnet"
+        - "offen"
+      kind:
+        type: "string"
+        description: "kind of project"
+        default: "Beratung"
+        enum:
+        - "Beratung"
+        - "SBF"
+        - "RA / RRD"
+        - "SBF / RA / RRD"
+        - "Sonstiges"
+    description: "core object, the projects to track"
+  Message:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        description: "A response message from the app."
+    description: "general message from backend to the frontend or client"
+  Customer:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "internal id of customer, gets created by system"
+      name:
+        type: "string"
+        description: "name of the customer"
+    description: "customer of this project"
+  Contact:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "internal id of contact, gets created by system"
+      name:
+        type: "string"
+        description: "name of contact"
+      mail:
+        type: "string"
+        description: "mail adress of contact"
+      role:
+        type: "string"
+        description: "role of this contact"
+    description: "contact for this project or customer"
+  Status:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "internal id of status, gets created by system"
+      owner:
+        type: "string"
+        description: "owner of status to differentiate between status by customer\
+          \ and internal status"
+      code:
+        type: "integer"
+        format: "int64"
+        description: "status code, normally a number between 01 and 99, should be\
+          \ formatted as 00"
+      status:
+        type: "string"
+        description: "name of status, for example \"planned\", \"staffed\", \"finished\""
+    description: "status of project. There can be different owners of statuses - customer,\
+      \ internal etc."
+  Comment:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "internal id of comment, gets created by system"
+      project:
+        type: "integer"
+        format: "int64"
+        description: "id of project this comment is about"
+      comment:
+        type: "string"
+        description: "actual comment"
+      timestamp:
+        type: "string"
+        format: "date-time"
+        description: "timestamp of this comment"
+      user:
+        type: "integer"
+        format: "int64"
+        description: "id of the user this comment came from"
+    description: "comment to a project"
