@@ -547,3 +547,23 @@ definitions:
         type: integer
         format: int64
         description: id of the user this comment came from
+  Resource:
+    type: object
+    description: resources are members of the project who get things done
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: internal id of the ressource, is created by system
+      abbr:
+        type: string
+        description: short abbrevation of the name, can be set manually or is created by system
+      firstname:
+        type: string
+        description: first name
+      surname:
+        type: string
+        description: last name
+      mail:
+        type: string
+        description: mail adress
